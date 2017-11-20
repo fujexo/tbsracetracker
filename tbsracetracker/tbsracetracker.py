@@ -79,15 +79,15 @@ class tbstracker:
     # Different values of the tracker
     def get_firmware(self):
         """read the firmware version of the tracker."""
-        return self._device.readCharacteristic(0x0018)
+        return self._read_char(0x0018)
 
     def get_name(self):
         """read the name of the tracker"""
-        return self._device.readCharacteristic(0x0003)
+        return self._read_char(0x0003)
 
     def get_manufacturer(self):
         """read the manufacturer of the tracker"""
-        return self._device.readCharacteristic(0x001e)
+        return self._read_char(0x001e)
 
     def get_battery(self):
         """read the battery state of the tracker"""
