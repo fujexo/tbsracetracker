@@ -4,12 +4,13 @@ from tbsracetracker.tbsracetracker import tbstracker
 
 # Get our tracker object
 mytracker = tbstracker('F4:5E:AB:B1:6D:5C')
+mytracker.connect()
 
 # Tracker stuff
 tracker_name = mytracker.get_name()
 
 # Set up configration
-for i in range(2,8):
+for i in range(2, 8):
     mytracker.set_config_pilot(i, 'FF')
 
 mytracker.set_config_pilot(1, 'F3')

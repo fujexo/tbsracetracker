@@ -32,26 +32,41 @@ class tbstracker:
         self.address = address
 
     def _encode_value(self, value):
-        """encode a given value"""
+        """encode a given value
+
+        :return: Bytes
+        """
         return codecs.encode(value, encoding='utf-8')
 
     def _decode_value(self, value):
-        """decode a given value"""
+        """decode a given value
+
+        :return: String
+        """
         return codecs.decode(value, encoding='utf-8', errors='ignore')
 
     def _connected(self):
-        """Check if we are connected"""
+        """Check if we are connected
+
+        :return: Boolean
+        """
         if self._device.status()['state'][0] == 'conn':
             return True
         else:
             return False
 
     def _write_char(self, address, value):
-        """write value to address on device"""
+        """write value to address on device
+
+        :return: None
+        """
         self._device.writeCharacteristic(address, self._encode_value(value))
 
     def _read_char(self, address):
-        """read value from address on device"""
+        """read value from address on device
+
+        :return: str
+        """
         return self._decode_value(self._device.readCharacteristic(address))
 
     def _write_read_tracker(self, value):

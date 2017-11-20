@@ -8,12 +8,14 @@ tbsracetracker
 .. image:: https://codecov.io/gh/fujexo/tbsracetracker/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/fujexo/tbsracetracker
 
-Control your TBS Race Tracker using Python
+This python module allows to read/write different values on a TBS Race Tracker.
 
+You can find an example for running a race in `race.py`.
 
-Features
---------
+Implemented Features
+--------------------
 
+- Connect/Disconnect Tracker
 - Start/Stop Race (Flyover and Shotgun)
 - Configure pilots (add, update, remove)
 - Read device information
@@ -28,3 +30,12 @@ Features
   - Signal strenght of first pilot
   - Total Rounds / Rounds per Pilot
   - Some other information
+
+- Reset Tracker
+
+Missing Features
+----------------
+
+- Configure Min/Max Laptime
+- Configure Max Laps
+- Calibrate tracker
