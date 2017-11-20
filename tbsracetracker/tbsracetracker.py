@@ -59,7 +59,6 @@ class tbstracker:
         """
         return re.findall(r'\w+', string)
 
-
     def _connected(self):
         """Check if we are connected
 
