@@ -1,10 +1,10 @@
-========
+=====
 Usage
-========
+=====
 
-To use tbsracetracker in a project::
+To use tbsracetracker in a project
 
-.. code-block::  python
+.. code-block:: py
 
    from tbracestracker.tbsracetracker import tbstracker
 

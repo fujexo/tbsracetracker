@@ -14,5 +14,17 @@ Control your TBS Race Tracker using Python
 Features
 --------
 
-* TODO
+- Start/Stop Race (Flyover and Shotgun)
+- Configure pilots (add, update, remove)
+- Read device information
 
+  - Firmware version
+  - Device name
+  - Manufacturer
+  - Battery status
+  - Configured Laps
+  - Configured Min Lap Time
+  - How Pilots are configured
+  - Signal strenght of first pilot
+  - Total Rounds / Rounds per Pilot
+  - Some other information
