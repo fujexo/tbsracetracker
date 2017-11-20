@@ -45,6 +45,21 @@ class tbstracker:
         """
         return codecs.decode(value, encoding='utf-8', errors='ignore')
 
+    def _find_re_number(self, string):
+        """find numbers in string
+
+        :return: String
+        """
+        return re.findall(r'\d+', string)
+
+    def _find_re_word(self, string):
+        """find words in string
+
+        :return: String
+        """
+        return re.findall(r'\w+', string)
+
+
     def _connected(self):
         """Check if we are connected
 
@@ -65,7 +80,7 @@ class tbstracker:
     def _read_char(self, address):
         """read value from address on device
 
-        :return: str
+        :return: String
         """
         return self._decode_value(self._device.readCharacteristic(address))
 
@@ -93,49 +108,68 @@ class tbstracker:
 
     # Different values of the tracker
     def get_firmware(self):
-        """read the firmware version of the tracker."""
+        """read the firmware version of the tracker.
+
+        :return: String
+        """
         return self._read_char(0x0018)
 
     def get_name(self):
-        """read the name of the tracker"""
+        """read the name of the tracker
+
+        :return: String
+        """
         return self._read_char(0x0003)
 
     def get_manufacturer(self):
-        """read the manufacturer of the tracker"""
+        """read the manufacturer of the tracker
+
+        :return: String
+        """
         return self._read_char(0x001e)
 
     def get_battery(self):
-        """read the battery state of the tracker"""
+        """read the battery state of the tracker
+
+        :return: String
+        """
         return self._write_read_tracker('B')
-
-    def _find_re_number(self, string):
-        """find numbers in string"""
-        return re.findall(r'\d+', string)
-
-    def _find_re_word(self, string):
-        """find words in string"""
-        return re.findall(r'\w+', string)
 
     # Get configurations
     def get_config_mode(self):
-        """read thte mode from tracker"""
+        """read thte mode from tracker
+
+        :return: Integer
+        """
         return self._find_re_number(self._write_read_tracker('M'))[0]
 
     def get_config_pilots(self):
-        """read how many pilots are configured"""
+        """read how many pilots are configured
+
+        :return: Integer
+        """
         return self._find_re_number(self._write_read_tracker('N'))[0]
 
     def get_config_laps(self):
-        """read how many laps are configured"""
+        """read how many laps are configured
+
+        :return: Integer
+        """
         return self._find_re_number(self._write_read_tracker('Z 2'))[1]
 
     def get_config_min_laptime(self):
-        """read the minimum time for each lap"""
+        """read the minimum time for each lap
+
+        :return: Integer
+        """
         return self._find_re_number(self._write_read_tracker('Z 6'))[1]
 
     # Set configurations
     def set_config_pilot(self, number, channel):
-        """configure a pilot"""
+        """configure a pilot
+
+        :return: Boolean
+        """
         if re.findall(r'(\w\w)',
                       self._write_read_tracker('N %i %s' % (number, channel)
                                                ))[0] == channel:
@@ -145,19 +179,31 @@ class tbstracker:
 
     # Start and stop races
     def start_flyover(self):
-        """Start Race in Flyover mode"""
+        """Start Race in Flyover mode
+
+        :return: String
+        """
         return self._find_re_word(self._write_read_tracker('2'))[0]
 
     def start_shotgun(self):
-        """Start Race in Shotgun mode"""
+        """Start Race in Shotgun mode
+
+        :return: String
+        """
         return self._find_re_word(self._write_read_tracker('1'))[0]
 
     def stop_race(self):
-        """Stop a Race"""
+        """Stop a Race
+
+        :return: String
+        """
         return self._find_re_word(self._write_read_tracker('0'))[0]
 
     def get_signal_strenght(self):
-        """Get Signal strenght of the first pilot"""
+        """Get Signal strenght of the first pilot
+
+        :return: list
+        """
         return self._write_read_tracker('Q').replace('\x00', '').split(',')
 
     # Statistics
@@ -170,7 +216,7 @@ class tbstracker:
 
         while running is not False:
             playerstats = []
-            sleep(1)
+            sleep(0.5)
             r = codecs.decode(self._device.readCharacteristic(0x0028),
                               encoding='utf-8', errors='ignore')
             if 'RACE COMPLETE' in r:
@@ -189,7 +235,10 @@ class tbstracker:
         print(race_stats)
 
     def get_total_rounds(self):
-        """Read the total flown rounds"""
+        """Read the total flown rounds
+
+        :return: Integer
+        """
         return self._write_read_tracker('R')
 
     def get_rounds(self, pilots=8):
