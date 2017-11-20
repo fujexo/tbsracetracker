@@ -27,7 +27,7 @@ lint:
 	flake8 tbsracetracker test
 
 test:
-	py.test
+	py.test --no-cov-on-fail --cov-report term-missing --cov=tbsracetracker
 
 test-all:
 	tox

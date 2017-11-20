@@ -1,19 +1,16 @@
 """
 Tests for `tbsracetracker` module.
 """
-import pytest
-from tbsracetracker import tbsracetracker
+
+from tbsracetracker.tbsracetracker import tbstracker
+
+tracker = tbstracker('00:00:00:00:00:00')
 
 
-class TestTbsracetracker(object):
+# Pytest
+def test_encode_value():
+    assert tracker._encode_value('t') == b't'
 
-    @classmethod
-    def setup_class(cls):
-        pass
 
-    def test_something(self):
-        pass
-
-    @classmethod
-    def teardown_class(cls):
-        pass
+def test_decode_value():
+    assert tracker._decode_value(b't') == 't'

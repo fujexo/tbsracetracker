@@ -1,6 +1,1 @@
-wheel>=0.22
 bluepy
-flake8
-pytest
-coverage
-tox
