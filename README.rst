@@ -36,6 +36,6 @@ Implemented Features
 Missing Features
 ----------------
 
-- Configure Min/Max Laptime
+- Configure Min Laptime
 - Configure Max Laps
 - Calibrate tracker
