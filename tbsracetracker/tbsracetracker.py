@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 # tbsracetracker - Control your TBS Race Tracker using Python!
-# Copyright (C) 2017Philipp Marmet
+# Copyright (C) 2017 Philipp Marmet
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
