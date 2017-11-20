@@ -1,6 +1,6 @@
 #!/bin/env python3
 
-from tbstracker.tbstracker import tbstracker
+from tbsracetracker.tbsracetracker import tbstracker
 
 # Get our tracker object
 mytracker = tbstracker('F4:5E:AB:B1:6D:5C')
