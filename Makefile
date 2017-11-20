@@ -4,4 +4,4 @@ GIT_HUB := https://github.com/fujexo/python-tbstracker
 include pyproject/Makefile
 
 test_ext:
-   echo Execute custom tests
+	echo Execute custom tests

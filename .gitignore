@@ -1,1 +1,4 @@
 __pycache__/
+python_tbstracker.egg-info/
+env/
+.deps/
