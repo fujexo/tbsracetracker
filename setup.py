@@ -1,81 +1,55 @@
-"""Setuptools package definition"""
+#!/usr/bin/env python
 
-# PLEASE REMOVE UNUSED CODE like CustomInstallCommand if you don't use it
-
-from setuptools import setup
-from setuptools import find_packages
-from setuptools.command.install import install
-import codecs
 import os
 import sys
 
-version = sys.version_info[0]
-if version > 2:
-    pass
-else:
-    pass
-
-__version__  = None
-version_file = "python-tbstracker/version.py"
-with codecs.open(version_file, encoding="UTF-8") as f:
-    code = compile(f.read(), version_file, 'exec')
-    exec(code)
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 
-def find_data(packages, extensions):
-    """Finds data files along with source.
+if sys.argv[-1] == 'publish':
+    os.system('python setup.py sdist upload')
+    sys.exit()
 
-    :param   packages: Look in these packages
-    :param extensions: Look for these extensions
-    """
-    data = {}
-    for package in packages:
-        package_path = package.replace('.', '/')
-        for dirpath, _, filenames in os.walk(package_path):
-            for filename in filenames:
-                for extension in extensions:
-                    if filename.endswith(".%s" % extension):
-                        file_path = os.path.join(
-                            dirpath,
-                            filename
-                        )
-                        file_path = file_path[len(package) + 1:]
-                        if package not in data:
-                            data[package] = []
-                        data[package].append(file_path)
-    return data
+readme = open('README.rst').read()
+doclink = """
+Documentation
+-------------
 
-with codecs.open('README.md', 'r', encoding="UTF-8") as f:
-    README_TEXT = f.read()
+The full documentation is at http://tbsracetracker.rtfd.org."""
+history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
-    name = "python-tbstracker",
-    version = __version__,
-    packages = find_packages(),
-    package_data=find_data(
-        find_packages(), ["json", "json.gz"]
-    ),
-    entry_points = {
-        'console_scripts': [
-        ]
-    },
-    install_requires = [
+    name='tbsracetracker',
+    version='0.1.0',
+    description='Control your TBS Race Tracker using Python',
+    long_description=readme + '\n\n' + doclink + '\n\n' + history,
+    author='Philipp Marmet',
+    author_email='fujexo@c0d3.ch',
+    url='https://github.com/fujexo/tbsracetracker',
+    packages=[
+        'tbsracetracker',
     ],
-    author = "fujexo",
-    author_email = "https://github.com/fujexo/",
-    description = "Control TBS Race Tracker using python",
-    long_description = README_TEXT,
-    keywords = "TBSRT",
-    url = "https://github.com/fujexo/python-tbstracker",
-    classifiers = [
-        "Development Status :: 4 - Beta",
-        "Environment :: Console",
-        "Intended Audience :: Developers",
-        "Intended Audience :: Information Technology",
-        "License :: OSI Approved :: "
-        "GNU Affero General Public License v3",
-        "Natural Language :: English",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3.4",
-    ]
+    package_dir={'tbsracetracker': 'tbsracetracker'},
+    include_package_data=True,
+    install_requires=[
+        'bluepy'
+    ],
+    license='GPLv3',
+    zip_safe=False,
+    keywords='tbsracetracker',
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: Implementation :: PyPy',
+    ],
 )
