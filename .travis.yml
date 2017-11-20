@@ -12,4 +12,8 @@ install:
 
 # command to run tests, e.g. python setup.py test
 script:
-  - py.test
+  - make test-all
+  - make coverage
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
