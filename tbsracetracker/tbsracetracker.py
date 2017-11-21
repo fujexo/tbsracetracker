@@ -216,8 +216,7 @@ class tbstracker:
         while running is not False:
             playerstats = []
             sleep(0.5)
-            r = codecs.decode(self._device.readCharacteristic(0x0028),
-                              encoding='utf-8', errors='ignore')
+            r = self._read_char(0x0028)
             if 'RACE COMPLETE' in r:
                 running = False
             if not r == previous:
