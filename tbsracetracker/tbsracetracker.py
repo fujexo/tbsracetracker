@@ -64,9 +64,10 @@ class tbstracker:
 
         :return: Boolean
         """
-        if self._device.status()['state'][0] == 'conn':
-            return True
-        else:
+        try:
+            if self._device.status()['state'][0] == 'conn':
+                return True
+        except bluepy.btle.BTLEException:
             return False
 
     def _write_char(self, address, value):

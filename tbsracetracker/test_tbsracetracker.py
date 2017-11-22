@@ -43,6 +43,9 @@ class TestTracker():
 
         assert(self.tracker._connected() is True)
 
+    def test_connected_nobluetooth(self, monkeypatch):
+        assert(self.tracker._connected() is False)
+
     def test_encode_value(self):
         assert self.tracker._encode_value('t') == b't'
 
