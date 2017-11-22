@@ -2,5 +2,6 @@ wheel>=0.22
 flake8
 pytest
 pytest-cov
+mock
 coverage
 tox
