@@ -49,9 +49,41 @@ def test_connected_nobluetooth(monkeypatch, tracker):
 
 
 def test_encode_value(tracker):
-
     assert tracker._encode_value('t') == b't'
 
 
 def test_decode_value(tracker):
     assert tracker._decode_value(b't') == 't'
+
+
+@pytest.mark.parametrize("string, expected", [
+    ("test 123 \x00 12", ['123', '12']),
+    ("123.256.123aybay", ['123', '256', '123']),
+])
+def test_find_re_number(tracker, string, expected):
+    assert tracker._find_re_number(string) == expected
+
+
+@pytest.mark.parametrize("string, expected", [
+    ("test 123 \x00 12", ['test', '123', '12']),
+    ("123.256.123aybay", ['123', '256', '123aybay']),
+])
+def test_find_re_word(tracker, string, expected):
+    assert tracker._find_re_word(string) == expected
+
+
+@pytest.mark.parametrize("address, value, expected", [
+    (0x0025, 'B', b'B'),
+    (0x0025, 'N', b'N'),
+])
+def test_write_char(tracker, monkeypatch, address, value, expected):
+    mock_device = []
+    monkeypatch.setattr(bluepy.btle.Peripheral, 'writeCharacteristic',
+                        MagicMock(bluepy.btle.Peripheral))
+    rt = bluepy.btle.Peripheral
+    rt.writeCharacteristic = lambda o, a, v: mock_device.append((a, v))
+
+    tracker._write_char(address, value)
+
+    assert mock_device[0][0] == address
+    assert mock_device[0][1] == expected
